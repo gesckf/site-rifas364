@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rifas36 - Minhas Compras</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#3B82F6',secondary:'#F97316'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-checkbox {
+position: relative;
+padding-left: 30px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #3B82F6;
+border-radius: 4px;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #3B82F6;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.badge {
+display: inline-flex;
+align-items: center;
+padding: 0.25rem 0.75rem;
+border-radius: 9999px;
+font-size: 0.75rem;
+font-weight: 500;
+}
+.badge-active {
+background-color: #dcfce7;
+color: #166534;
+}
+.badge-waiting {
+background-color: #fef9c3;
+color: #854d0e;
+}
+.badge-drawn {
+background-color: #dbeafe;
+color: #1e40af;
+}
+.badge-not-won {
+background-color: #fee2e2;
+color: #b91c1c;
+}
+.number-chip {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+background-color: #dbeafe;
+color: #1e40af;
+border-radius: 4px;
+padding: 0.25rem 0.5rem;
+font-size: 0.75rem;
+font-weight: 500;
+margin-right: 0.25rem;
+margin-bottom: 0.25rem;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<div class="flex min-h-screen">
+<!-- Sidebar -->
+<div class="w-64 bg-[#1E3A8A] text-white flex flex-col">
+<div class="p-4 border-b border-blue-800">
+<h1 class="font-['Pacifico'] text-2xl">Rifas36</h1>
+</div>
+<div class="p-4 border-b border-blue-800 flex items-center">
+<div class="w-10 h-10 rounded-full bg-blue-400 flex items-center justify-center mr-3">
+<div class="w-6 h-6 flex items-center justify-center text-white">
+<i class="ri-user-line"></i>
+</div>
+</div>
+<div>
+<p class="font-medium">Mariana Santos</p>
+<p class="text-xs text-blue-200">Compradora</p>
+</div>
+</div>
+<nav class="flex-1 p-4">
+<ul class="space-y-1">
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-store-2-line"></i>
+</div>
+<span>Explorar Rifas</span>
+</a>
+</li>
+<li>
+<a href="https://readdy.ai/home/d1b261df-c2a5-4031-8501-9570e63f5cab/8cb9a7f4-fa79-4751-a5bd-8f7ffe35b622" data-readdy="true" class="flex items-center px-4 py-3 rounded-button bg-blue-700 hover:bg-blue-800 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-shopping-bag-line"></i>
+</div>
+<span>Minhas Compras</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-heart-line"></i>
+</div>
+<span>Favoritos</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-user-settings-line"></i>
+</div>
+<span>Minha Conta</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="p-4 mt-auto">
+<button class="flex items-center text-sm hover:text-blue-200 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-logout-box-line"></i>
+</div>
+<span>Sair</span>
+</button>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col">
+<!-- Top Bar -->
+<header class="bg-white shadow-sm p-4 flex justify-between items-center">
+<div class="flex items-center">
+<h2 class="text-xl font-semibold text-gray-800">Minhas Compras</h2>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-gray-500 hover:text-gray-700 relative">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+</button>
+<button class="text-gray-500 hover:text-gray-700">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-notification-3-line"></i>
+</div>
+</button>
+</div>
+</header>
+<!-- Content -->
+<div class="flex-1 p-6 overflow-auto">
+<div class="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+<div class="relative w-full md:w-80">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<input type="text" class="pl-10 w-full border border-gray-300 rounded-button py-2 px-4 focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="Buscar rifas...">
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 bg-primary text-white rounded-full text-sm font-medium whitespace-nowrap">
+Todas
+</button>
+<button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-50 whitespace-nowrap">
+Ativas
+</button>
+<button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-50 whitespace-nowrap">
+Aguardando Sorteio
+</button>
+<button class="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-full text-sm font-medium hover:bg-gray-50 whitespace-nowrap">
+Sorteadas
+</button>
+</div>
+<div class="relative">
+<select class="appearance-none pl-3 pr-10 py-2 border border-gray-300 rounded-button text-sm focus:ring-2 focus:ring-primary focus:border-primary">
+<option>Mais recentes</option>
+<option>Mais antigas</option>
+<option>Valor: maior para menor</option>
+<option>Valor: menor para maior</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+<div class="w-4 h-4 flex items-center justify-center text-gray-400">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+</div>
+<!-- Purchases List -->
+<div class="space-y-6">
+<!-- Purchase Item 1 -->
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=a%2520professional%2520photo%2520of%2520an%2520iPhone%252015%2520Pro%2520Max%2520smartphone%2520on%2520a%2520clean%2520white%2520background%252C%2520showing%2520the%2520device%2520from%2520the%2520front%2520and%2520back%252C%2520high%2520quality%2520product%2520photography%2520with%2520soft%2520shadows&width=400&height=300&seq=1&orientation=landscape" alt="iPhone 15 Pro Max" class="w-full h-40 object-cover object-top rounded-lg">
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
+<div>
+<h3 class="text-xl font-semibold text-gray-800">iPhone 15 Pro Max 256GB</h3>
+<p class="text-gray-500 text-sm">Comprado em 15/05/2025</p>
+</div>
+<span class="badge badge-active">Ativa</span>
+</div>
+<div class="mb-4">
+<p class="text-sm text-gray-600 mb-2">Números comprados:</p>
+<div class="flex flex-wrap">
+<span class="number-chip">005</span>
+<span class="number-chip">012</span>
+<span class="number-chip">026</span>
+<span class="number-chip">047</span>
+<span class="number-chip">089</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div>
+<p class="text-sm text-gray-500">Valor total</p>
+<p class="font-semibold text-gray-800">R$ 50,00</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Data do sorteio</p>
+<p class="font-semibold text-gray-800">30/06/2025</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary text-white !rounded-button hover:bg-blue-600 text-sm font-medium whitespace-nowrap">
+Ver Detalhes
+</button>
+<button class="px-4 py-2 border border-primary text-primary !rounded-button hover:bg-blue-50 text-sm font-medium whitespace-nowrap">
+Comprar Mais Números
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Purchase Item 2 -->
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=a%2520professional%2520photo%2520of%2520a%2520PlayStation%25205%2520console%2520with%2520two%2520controllers%2520on%2520a%2520clean%2520white%2520background%252C%2520high%2520quality%2520product%2520photography%2520with%2520soft%2520shadows%252C%2520showing%2520the%2520gaming%2520system%2520from%2520a%2520slight%2520angle&width=400&height=300&seq=2&orientation=landscape" alt="PlayStation 5" class="w-full h-40 object-cover object-top rounded-lg">
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
+<div>
+<h3 class="text-xl font-semibold text-gray-800">PlayStation 5 + 2 Controles</h3>
+<p class="text-gray-500 text-sm">Comprado em 10/05/2025</p>
+</div>
+<span class="badge badge-waiting">Aguardando Sorteio</span>
+</div>
+<div class="mb-4">
+<p class="text-sm text-gray-600 mb-2">Números comprados:</p>
+<div class="flex flex-wrap">
+<span class="number-chip">123</span>
+<span class="number-chip">234</span>
+<span class="number-chip">345</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div>
+<p class="text-sm text-gray-500">Valor total</p>
+<p class="font-semibold text-gray-800">R$ 15,00</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Data do sorteio</p>
+<p class="font-semibold text-gray-800">21/05/2025</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary text-white !rounded-button hover:bg-blue-600 text-sm font-medium whitespace-nowrap">
+Ver Detalhes
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Purchase Item 3 -->
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=a%2520professional%2520photo%2520of%2520a%2520Dell%2520XPS%252015%2520laptop%2520on%2520a%2520clean%2520white%2520background%252C%2520showing%2520the%2520device%2520from%2520a%2520slight%2520angle%2520with%2520the%2520screen%2520open%252C%2520high%2520quality%2520product%2520photography%2520with%2520soft%2520shadows&width=400&height=300&seq=3&orientation=landscape" alt="Dell XPS 15" class="w-full h-40 object-cover object-top rounded-lg">
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
+<div>
+<h3 class="text-xl font-semibold text-gray-800">Notebook Dell XPS 15</h3>
+<p class="text-gray-500 text-sm">Comprado em 01/05/2025</p>
+</div>
+<span class="badge badge-drawn">Sorteada</span>
+</div>
+<div class="mb-4">
+<p class="text-sm text-gray-600 mb-2">Números comprados:</p>
+<div class="flex flex-wrap">
+<span class="number-chip">078</span>
+<span class="number-chip">142</span>
+<span class="number-chip">276</span>
+<span class="number-chip">298</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+<div>
+<p class="text-sm text-gray-500">Valor total</p>
+<p class="font-semibold text-gray-800">R$ 80,00</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Data do sorteio</p>
+<p class="font-semibold text-gray-800">15/05/2025</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Número sorteado</p>
+<p class="font-semibold text-green-600">142 (Você ganhou!)</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary text-white !rounded-button hover:bg-blue-600 text-sm font-medium whitespace-nowrap">
+Ver Detalhes
+</button>
+<button class="px-4 py-2 border border-green-600 text-green-600 !rounded-button hover:bg-green-50 text-sm font-medium whitespace-nowrap">
+Resgatar Prêmio
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Purchase Item 4 -->
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=a%2520professional%2520photo%2520of%2520a%2520Samsung%252065%2520inch%2520smart%2520TV%2520on%2520a%2520clean%2520white%2520background%252C%2520showing%2520the%2520thin%2520bezel%2520design%252C%2520high%2520quality%2520product%2520photography%2520with%2520soft%2520shadows&width=400&height=300&seq=4&orientation=landscape" alt="Smart TV Samsung" class="w-full h-40 object-cover object-top rounded-lg">
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
+<div>
+<h3 class="text-xl font-semibold text-gray-800">Smart TV Samsung 65"</h3>
+<p class="text-gray-500 text-sm">Comprado em 25/04/2025</p>
+</div>
+<span class="badge badge-not-won">Não Premiada</span>
+</div>
+<div class="mb-4">
+<p class="text-sm text-gray-600 mb-2">Números comprados:</p>
+<div class="flex flex-wrap">
+<span class="number-chip">056</span>
+<span class="number-chip">127</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+<div>
+<p class="text-sm text-gray-500">Valor total</p>
+<p class="font-semibold text-gray-800">R$ 30,00</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Data do sorteio</p>
+<p class="font-semibold text-gray-800">10/05/2025</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Número sorteado</p>
+<p class="font-semibold text-gray-800">215</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary text-white !rounded-button hover:bg-blue-600 text-sm font-medium whitespace-nowrap">
+Ver Detalhes
+</button>
+<button class="px-4 py-2 border border-primary text-primary !rounded-button hover:bg-blue-50 text-sm font-medium whitespace-nowrap">
+Explorar Novas Rifas
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Purchase Item 5 -->
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=a%2520professional%2520photo%2520of%2520an%2520Apple%2520Watch%2520Series%25209%2520on%2520a%2520clean%2520white%2520background%252C%2520showing%2520the%2520device%2520from%2520a%2520slight%2520angle%252C%2520high%2520quality%2520product%2520photography%2520with%2520soft%2520shadows&width=400&height=300&seq=5&orientation=landscape" alt="Apple Watch Series 9" class="w-full h-40 object-cover object-top rounded-lg">
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
+<div>
+<h3 class="text-xl font-semibold text-gray-800">Apple Watch Series 9</h3>
+<p class="text-gray-500 text-sm">Comprado em 18/05/2025</p>
+</div>
+<span class="badge badge-active">Ativa</span>
+</div>
+<div class="mb-4">
+<p class="text-sm text-gray-600 mb-2">Números comprados:</p>
+<div class="flex flex-wrap">
+<span class="number-chip">023</span>
+<span class="number-chip">045</span>
+<span class="number-chip">067</span>
+<span class="number-chip">089</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div>
+<p class="text-sm text-gray-500">Valor total</p>
+<p class="font-semibold text-gray-800">R$ 32,00</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Data do sorteio</p>
+<p class="font-semibold text-gray-800">05/07/2025</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary text-white !rounded-button hover:bg-blue-600 text-sm font-medium whitespace-nowrap">
+Ver Detalhes
+</button>
+<button class="px-4 py-2 border border-primary text-primary !rounded-button hover:bg-blue-50 text-sm font-medium whitespace-nowrap">
+Comprar Mais Números
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-8 flex justify-center">
+<nav class="flex items-center space-x-1">
+<button class="px-3 py-2 rounded-button border border-gray-300 text-gray-500 hover:bg-gray-50">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-left-s-line"></i>
+</div>
+</button>
+<button class="px-3 py-2 rounded-button bg-primary text-white">1</button>
+<button class="px-3 py-2 rounded-button border border-gray-300 text-gray-700 hover:bg-gray-50">2</button>
+<button class="px-3 py-2 rounded-button border border-gray-300 text-gray-700 hover:bg-gray-50">3</button>
+<span class="px-2 text-gray-500">...</span>
+<button class="px-3 py-2 rounded-button border border-gray-300 text-gray-700 hover:bg-gray-50">8</button>
+<button class="px-3 py-2 rounded-button border border-gray-300 text-gray-500 hover:bg-gray-50">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-right-s-line"></i>
+</div>
+</button>
+</nav>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const page1Content = `
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=a%2520professional%2520photo%2520of%2520an%2520iPhone%252015%2520Pro%2520Max%2520smartphone%2520on%2520a%2520clean%2520white%2520background%252C%2520showing%2520the%2520device%2520from%2520the%2520front%2520and%2520back%252C%2520high%2520quality%2520product%2520photography%2520with%2520soft%2520shadows&width=400&height=300&seq=1&orientation=landscape" alt="iPhone 15 Pro Max" class="w-full h-40 object-cover object-top rounded-lg">
+</div>
+<!-- Rest of page 1 content -->
+</div>
+</div>`;
+
+const page2Content = `
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=a%2520professional%2520photo%2520of%2520a%2520MacBook%2520Pro%252016%2520inch%2520laptop%2520on%2520a%2520clean%2520white%2520background%252C%2520showing%2520the%2520device%2520from%2520a%2520slight%2520angle%2520with%2520the%2520screen%2520open%252C%2520high%2520quality%2520product%2520photography%2520with%2520soft%2520shadows&width=400&height=300&seq=6&orientation=landscape" alt="MacBook Pro" class="w-full h-40 object-cover object-top rounded-lg">
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
+<div>
+<h3 class="text-xl font-semibold text-gray-800">MacBook Pro 16"</h3>
+<p class="text-gray-500 text-sm">Comprado em 12/05/2025</p>
+</div>
+<span class="badge badge-active">Ativa</span>
+</div>
+<div class="mb-4">
+<p class="text-sm text-gray-600 mb-2">Números comprados:</p>
+<div class="flex flex-wrap">
+<span class="number-chip">034</span>
+<span class="number-chip">156</span>
+<span class="number-chip">278</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div>
+<p class="text-sm text-gray-500">Valor total</p>
+<p class="font-semibold text-gray-800">R$ 90,00</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Data do sorteio</p>
+<p class="font-semibold text-gray-800">10/07/2025</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary text-white !rounded-button hover:bg-blue-600 text-sm font-medium whitespace-nowrap">
+Ver Detalhes
+</button>
+<button class="px-4 py-2 border border-primary text-primary !rounded-button hover:bg-blue-50 text-sm font-medium whitespace-nowrap">
+Comprar Mais Números
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm overflow-hidden mt-6">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=a%2520professional%2520photo%2520of%2520a%2520Canon%2520EOS%2520R5%2520camera%2520with%2520lens%2520on%2520a%2520clean%2520white%2520background%252C%2520showing%2520the%2520device%2520from%2520a%2520slight%2520angle%252C%2520high%2520quality%2520product%2520photography%2520with%2520soft%2520shadows&width=400&height=300&seq=7&orientation=landscape" alt="Canon EOS R5" class="w-full h-40 object-cover object-top rounded-lg">
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
+<div>
+<h3 class="text-xl font-semibold text-gray-800">Canon EOS R5</h3>
+<p class="text-gray-500 text-sm">Comprado em 08/05/2025</p>
+</div>
+<span class="badge badge-waiting">Aguardando Sorteio</span>
+</div>
+<div class="mb-4">
+<p class="text-sm text-gray-600 mb-2">Números comprados:</p>
+<div class="flex flex-wrap">
+<span class="number-chip">189</span>
+<span class="number-chip">234</span>
+<span class="number-chip">567</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div>
+<p class="text-sm text-gray-500">Valor total</p>
+<p class="font-semibold text-gray-800">R$ 45,00</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Data do sorteio</p>
+<p class="font-semibold text-gray-800">25/05/2025</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary text-white !rounded-button hover:bg-blue-600 text-sm font-medium whitespace-nowrap">
+Ver Detalhes
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm overflow-hidden mt-6">
+<div class="p-6 flex flex-col md:flex-row gap-6">
+<div class="w-full md:w-48 flex-shrink-0">
+<img src="https://readdy.ai/api/search-image?query=a%2520professional%2520photo%2520of%2520a%2520DJI%2520Mavic%25203%2520Pro%2520drone%2520on%2520a%2520clean%2520white%2520background%252C%2520showing%2520the%2520device%2520from%2520a%2520slight%2520angle%252C%2520high%2520quality%2520product%2520photography%2520with%2520soft%2520shadows&width=400&height=300&seq=8&orientation=landscape" alt="DJI Mavic 3 Pro" class="w-full h-40 object-cover object-top rounded-lg">
+</div>
+<div class="flex-1">
+<div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4 gap-2">
+<div>
+<h3 class="text-xl font-semibold text-gray-800">DJI Mavic 3 Pro</h3>
+<p class="text-gray-500 text-sm">Comprado em 05/05/2025</p>
+</div>
+<span class="badge badge-not-won">Não Premiada</span>
+</div>
+<div class="mb-4">
+<p class="text-sm text-gray-600 mb-2">Números comprados:</p>
+<div class="flex flex-wrap">
+<span class="number-chip">445</span>
+<span class="number-chip">678</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+<div>
+<p class="text-sm text-gray-500">Valor total</p>
+<p class="font-semibold text-gray-800">R$ 40,00</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Data do sorteio</p>
+<p class="font-semibold text-gray-800">18/05/2025</p>
+</div>
+<div>
+<p class="text-sm text-gray-500">Número sorteado</p>
+<p class="font-semibold text-gray-800">123</p>
+</div>
+</div>
+<div class="flex flex-wrap gap-3">
+<button class="px-4 py-2 bg-primary text-white !rounded-button hover:bg-blue-600 text-sm font-medium whitespace-nowrap">
+Ver Detalhes
+</button>
+<button class="px-4 py-2 border border-primary text-primary !rounded-button hover:bg-blue-50 text-sm font-medium whitespace-nowrap">
+Explorar Novas Rifas
+</button>
+</div>
+</div>
+</div>
+</div>`;
+
+// Filter buttons functionality
+const filterButtons = document.querySelectorAll('.rounded-full');
+filterButtons.forEach(button => {
+button.addEventListener('click', function() {
+filterButtons.forEach(btn => {
+btn.classList.remove('bg-primary', 'text-white');
+btn.classList.add('bg-white', 'border', 'border-gray-300', 'text-gray-700', 'hover:bg-gray-50');
+});
+this.classList.remove('bg-white', 'border', 'border-gray-300', 'text-gray-700', 'hover:bg-gray-50');
+this.classList.add('bg-primary', 'text-white');
+});
+});
+
+// Search functionality
+const searchInput = document.querySelector('input[type="text"]');
+searchInput.addEventListener('input', function() {
+const searchTerm = this.value.toLowerCase();
+const purchaseItems = document.querySelectorAll('.bg-white.rounded-xl.shadow-sm');
+purchaseItems.forEach(item => {
+const title = item.querySelector('h3').textContent.toLowerCase();
+if (title.includes(searchTerm)) {
+item.style.display = 'block';
+} else {
+item.style.display = 'none';
+}
+});
+});
+
+// Pagination functionality
+const paginationButtons = document.querySelectorAll('.mt-8 button');
+const contentContainer = document.querySelector('.space-y-6');
+
+paginationButtons.forEach((button, index) => {
+button.addEventListener('click', function() {
+if (this.textContent.trim() === '2') {
+contentContainer.innerHTML = page2Content;
+paginationButtons.forEach(btn => {
+if (btn.textContent.trim() === '1' || btn.textContent.trim() === '2') {
+btn.classList.remove('bg-primary', 'text-white', 'border', 'border-gray-300', 'text-gray-700');
+if (btn.textContent.trim() === '2') {
+btn.classList.add('bg-primary', 'text-white');
+} else {
+btn.classList.add('border', 'border-gray-300', 'text-gray-700');
+}
+}
+});
+} else if (this.textContent.trim() === '1') {
+contentContainer.innerHTML = page1Content;
+paginationButtons.forEach(btn => {
+if (btn.textContent.trim() === '1' || btn.textContent.trim() === '2') {
+btn.classList.remove('bg-primary', 'text-white', 'border', 'border-gray-300', 'text-gray-700');
+if (btn.textContent.trim() === '1') {
+btn.classList.add('bg-primary', 'text-white');
+} else {
+btn.classList.add('border', 'border-gray-300', 'text-gray-700');
+}
+}
+});
+}
+});
+});
+});
+</script>
+</body>
+</html>
