@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rifas364 - Plataforma de Rifas Online</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#2563EB',secondary:'#7C3AED'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-section {
+            background-image: url('https://readdy.ai/api/search-image?query=modern%20lottery%20platform%20with%20blue%20and%20purple%20gradient%20background%2C%20digital%20tickets%20flying%2C%20professional%20clean%20design%2C%20soft%20lighting%2C%20minimalist%20style%2C%20perfect%20for%20website%20hero%20section%2C%20leave%20space%20on%20left%20side%20for%20text%2C%20high%20quality%20digital%20art&width=1600&height=800&seq=1&orientation=landscape');
+            background-size: cover;
+            background-position: center right;
+        }
+        .custom-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+        .custom-checkbox:checked {
+            background-color: #2563EB;
+            border-color: #2563EB;
+        }
+        .custom-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .custom-switch {
+            position: relative;
+            display: inline-block;
+            width: 3.5rem;
+            height: 1.75rem;
+        }
+        .custom-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #e5e7eb;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 1.25rem;
+            width: 1.25rem;
+            left: 0.25rem;
+            bottom: 0.25rem;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #2563EB;
+        }
+        input:checked + .slider:before {
+            transform: translateX(1.75rem);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="#" class="text-3xl font-['Pacifico'] text-primary">rifas364</a>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">Início</a>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">Como Funciona</a>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">Rifas Disponíveis</a>
+                <a href="#" class="text-gray-700 hover:text-primary font-medium">Contato</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <a href="#" class="text-gray-700 hover:text-primary font-medium hidden md:block">Entrar</a>
+                <a href="#" class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-primary/90 transition whitespace-nowrap">Cadastrar</a>
+                <button class="md:hidden text-gray-700 focus:outline-none w-10 h-10 flex items-center justify-center">
+                    <i class="ri-menu-line ri-lg"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
+        <div class="container mx-auto px-4 py-20 md:py-32 relative">
+            <div class="max-w-2xl">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Crie e gerencie suas rifas online com facilidade</h1>
+                <p class="text-lg text-gray-700 mb-8">A plataforma completa para você criar suas próprias rifas, gerenciar vendas e distribuir prêmios de forma simples e transparente.</p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-primary/90 transition text-center whitespace-nowrap">Criar Minha Rifa</a>
+                    <a href="#" class="bg-white text-primary border border-primary px-8 py-3 !rounded-button font-medium hover:bg-gray-50 transition text-center whitespace-nowrap">Ver Rifas Disponíveis</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Como funciona a Rifas364</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Nossa plataforma foi desenvolvida para tornar o processo de criação e gerenciamento de rifas online simples e lucrativo.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="ri-add-circle-line ri-xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Crie sua rifa</h3>
+                    <p class="text-gray-600">Defina o prêmio, quantidade de números, valor e prazo. Personalize sua rifa como desejar.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="ri-share-line ri-xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Compartilhe e venda</h3>
+                    <p class="text-gray-600">Divulgue sua rifa nas redes sociais e acompanhe as vendas em tempo real no seu painel.</p>
+                </div>
+                
+                <div class="bg-white p-8 rounded shadow-sm border border-gray-100 flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <i class="ri-trophy-line ri-xl text-primary"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Sorteie e receba</h3>
+                    <p class="text-gray-600">Realize o sorteio, anuncie o ganhador e receba o valor arrecadado com desconto da nossa taxa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rifas em Destaque -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-900">Rifas em Destaque</h2>
+                <a href="#" class="text-primary font-medium flex items-center hover:underline whitespace-nowrap">
+                    Ver todas
+                    <i class="ri-arrow-right-line ri-sm ml-1"></i>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Rifa 1 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=new%20iphone%2015%20pro%20max%20on%20clean%20white%20background%2C%20product%20photography%2C%20high%20quality%2C%20professional%20lighting%2C%20minimalist%20style&width=600&height=400&seq=2&orientation=landscape" alt="iPhone 15 Pro Max" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-lg font-semibold text-gray-900">iPhone 15 Pro Max</h3>
+                            <span class="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded">Tecnologia</span>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-gray-600 text-sm mb-3">Sorteio do novo iPhone 15 Pro Max 256GB na cor Titânio Natural.</p>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Números: 100</span>
+                                <span class="font-medium text-gray-900">R$ 25,00/número</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <div class="flex justify-between mt-2 text-xs text-gray-500">
+                                <span>75 vendidos</span>
+                                <span>25 restantes</span>
+                            </div>
+                        </div>
+                        <a href="#" class="block w-full bg-primary text-white text-center py-2 !rounded-button font-medium hover:bg-primary/90 transition whitespace-nowrap">Participar</a>
+                    </div>
+                </div>
+                
+                <!-- Rifa 2 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=playstation%205%20console%20with%20controller%20on%20clean%20white%20background%2C%20product%20photography%2C%20high%20quality%2C%20professional%20lighting%2C%20minimalist%20style&width=600&height=400&seq=3&orientation=landscape" alt="PlayStation 5" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-lg font-semibold text-gray-900">PlayStation 5</h3>
+                            <span class="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded">Games</span>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-gray-600 text-sm mb-3">Console PlayStation 5 Edição Digital com 2 controles e 3 jogos.</p>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Números: 200</span>
+                                <span class="font-medium text-gray-900">R$ 10,00/número</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <div class="flex justify-between mt-2 text-xs text-gray-500">
+                                <span>90 vendidos</span>
+                                <span>110 restantes</span>
+                            </div>
+                        </div>
+                        <a href="#" class="block w-full bg-primary text-white text-center py-2 !rounded-button font-medium hover:bg-primary/90 transition whitespace-nowrap">Participar</a>
+                    </div>
+                </div>
+                
+                <!-- Rifa 3 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=modern%20electric%20bike%20on%20clean%20white%20background%2C%20product%20photography%2C%20high%20quality%2C%20professional%20lighting%2C%20minimalist%20style&width=600&height=400&seq=4&orientation=landscape" alt="Bicicleta Elétrica" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-lg font-semibold text-gray-900">Bicicleta Elétrica</h3>
+                            <span class="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded">Esportes</span>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-gray-600 text-sm mb-3">Bicicleta elétrica modelo Urban 350W com autonomia de 35km.</p>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Números: 150</span>
+                                <span class="font-medium text-gray-900">R$ 15,00/número</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                            <div class="flex justify-between mt-2 text-xs text-gray-500">
+                                <span>135 vendidos</span>
+                                <span>15 restantes</span>
+                            </div>
+                        </div>
+                        <a href="#" class="block w-full bg-primary text-white text-center py-2 !rounded-button font-medium hover:bg-primary/90 transition whitespace-nowrap">Participar</a>
+                    </div>
+                </div>
+                
+                <!-- Rifa 4 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://readdy.ai/api/search-image?query=smart%20watch%20on%20clean%20white%20background%2C%20product%20photography%2C%20high%20quality%2C%20professional%20lighting%2C%20minimalist%20style&width=600&height=400&seq=5&orientation=landscape" alt="Smartwatch" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-lg font-semibold text-gray-900">Smartwatch Premium</h3>
+                            <span class="bg-secondary/10 text-secondary text-xs font-medium px-2 py-1 rounded">Tecnologia</span>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-gray-600 text-sm mb-3">Smartwatch com monitor cardíaco, GPS e bateria de longa duração.</p>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-500">Números: 80</span>
+                                <span class="font-medium text-gray-900">R$ 12,50/número</span>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 30%"></div>
+                            </div>
+                            <div class="flex justify-between mt-2 text-xs text-gray-500">
+                                <span>24 vendidos</span>
+                                <span>56 restantes</span>
+                            </div>
+                        </div>
+                        <a href="#" class="block w-full bg-primary text-white text-center py-2 !rounded-button font-medium hover:bg-primary/90 transition whitespace-nowrap">Participar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Criar Rifa Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Crie sua própria rifa em minutos</h2>
+                    <p class="text-lg text-gray-600 mb-8">Com a Rifas364, você pode criar e gerenciar suas rifas de forma simples e rápida. Nossa plataforma oferece todas as ferramentas necessárias para o sucesso da sua campanha.</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="ri-check-line ri-lg text-primary"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-1">Personalização completa</h3>
+                                <p class="text-gray-600">Defina o número de bilhetes, valor, prazo e personalize sua página de rifa.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="ri-check-line ri-lg text-primary"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-1">Painel de controle intuitivo</h3>
+                                <p class="text-gray-600">Acompanhe vendas, visualize estatísticas e gerencie participantes em tempo real.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                                <i class="ri-check-line ri-lg text-primary"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-semibold text-gray-900 mb-1">Sorteio transparente</h3>
+                                <p class="text-gray-600">Realize sorteios ao vivo ou automáticos com total transparência para os participantes.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-10">
+                        <a href="#" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-primary/90 transition inline-block whitespace-nowrap">Criar Minha Rifa</a>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <div class="bg-gray-100 rounded-lg p-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Prévia do formulário de criação</h3>
+                        
+                        <form>
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nome da Rifa</label>
+                                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="Ex: iPhone 15 Pro Max">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Descrição do Prêmio</label>
+                                    <textarea class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" rows="3" placeholder="Descreva o prêmio em detalhes..."></textarea>
+                                </div>
+                                
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Quantidade de Números</label>
+                                        <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="Ex: 100">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Valor por Número (R$)</label>
+                                        <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="Ex: 10,00">
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Data do Sorteio</label>
+                                    <input type="date" class="w-full px-4 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                                </div>
+                                
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="terms" class="custom-checkbox">
+                                    <label for="terms" class="ml-2 text-sm text-gray-600">Concordo com os <a href="#" class="text-primary hover:underline">termos e condições</a> da plataforma</label>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <button type="button" class="w-full bg-primary text-white py-2 !rounded-button font-medium hover:bg-primary/90 transition whitespace-nowrap">Pré-visualizar Rifa</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="absolute -top-4 -right-4 bg-secondary text-white text-sm font-medium px-3 py-1 rounded-full">Exemplo</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">O que nossos clientes dizem</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Centenas de organizadores já utilizaram nossa plataforma para criar rifas de sucesso.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="text-primary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Consegui arrecadar fundos para a reforma da minha igreja em tempo recorde. A plataforma é muito intuitiva e o suporte é excelente!"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                            <i class="ri-user-line text-gray-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h4 class="text-sm font-semibold text-gray-900">Carlos Oliveira</h4>
+                            <p class="text-xs text-gray-500">Organizador de eventos beneficentes</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="text-primary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"Já realizei 5 rifas na plataforma e todas foram um sucesso! O sistema é muito confiável e os pagamentos são processados rapidamente."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                            <i class="ri-user-line text-gray-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h4 class="text-sm font-semibold text-gray-900">Fernanda Santos</h4>
+                            <p class="text-xs text-gray-500">Empreendedora</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div class="text-primary">
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-fill"></i>
+                            <i class="ri-star-half-fill"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-6">"A melhor plataforma para rifas que já utilizei. O painel de controle é completo e consigo acompanhar tudo em tempo real. Recomendo!"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
+                            <i class="ri-user-line text-gray-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <h4 class="text-sm font-semibold text-gray-900">Ricardo Almeida</h4>
+                            <p class="text-xs text-gray-500">Influenciador digital</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Perguntas Frequentes</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Tire suas dúvidas sobre como funciona nossa plataforma de rifas online.</p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-6">
+                    <!-- FAQ Item 1 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-5 bg-white text-left focus:outline-none">
+                            <span class="text-lg font-medium text-gray-900">Como funciona a taxa da plataforma?</span>
+                            <i class="ri-arrow-down-s-line ri-lg text-gray-500"></i>
+                        </button>
+                        <div class="px-5 pb-5">
+                            <p class="text-gray-600">A Rifas364 cobra uma taxa de 10% sobre o valor total arrecadado com a venda dos números da rifa. Esta taxa é automaticamente descontada no momento do saque do valor pelo organizador após a conclusão do sorteio.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-5 bg-white text-left focus:outline-none">
+                            <span class="text-lg font-medium text-gray-900">Como é realizado o sorteio?</span>
+                            <i class="ri-arrow-down-s-line ri-lg text-gray-500"></i>
+                        </button>
+                        <div class="px-5 pb-5">
+                            <p class="text-gray-600">O sorteio pode ser realizado de duas formas: automático pela plataforma, utilizando um gerador de números aleatórios certificado, ou manual pelo organizador através de transmissão ao vivo. Em ambos os casos, o resultado é registrado e disponibilizado para todos os participantes.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-5 bg-white text-left focus:outline-none">
+                            <span class="text-lg font-medium text-gray-900">Quanto tempo leva para receber o valor arrecadado?</span>
+                            <i class="ri-arrow-down-s-line ri-lg text-gray-500"></i>
+                        </button>
+                        <div class="px-5 pb-5">
+                            <p class="text-gray-600">Após a realização do sorteio e confirmação do ganhador, o valor arrecadado (descontada a taxa da plataforma) fica disponível para saque em até 3 dias úteis. A transferência para sua conta bancária pode levar de 1 a 2 dias úteis adicionais, dependendo do seu banco.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-5 bg-white text-left focus:outline-none">
+                            <span class="text-lg font-medium text-gray-900">É possível cancelar uma rifa já iniciada?</span>
+                            <i class="ri-arrow-down-s-line ri-lg text-gray-500"></i>
+                        </button>
+                        <div class="px-5 pb-5">
+                            <p class="text-gray-600">Sim, é possível cancelar uma rifa desde que nenhum número tenha sido vendido. Caso já existam compradores, será necessário entrar em contato com nosso suporte para avaliar a situação e, se necessário, realizar o reembolso aos participantes.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ Item 5 -->
+                    <div class="border border-gray-200 rounded-lg overflow-hidden">
+                        <button class="w-full flex justify-between items-center p-5 bg-white text-left focus:outline-none">
+                            <span class="text-lg font-medium text-gray-900">Quais formas de pagamento são aceitas?</span>
+                            <i class="ri-arrow-down-s-line ri-lg text-gray-500"></i>
+                        </button>
+                        <div class="px-5 pb-5">
+                            <p class="text-gray-600">Nossa plataforma aceita pagamentos via PIX, cartão de crédito, boleto bancário e transferência bancária. Para o organizador, o saque pode ser realizado via transferência bancária ou PIX.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Pronto para criar sua primeira rifa?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Junte-se a milhares de organizadores que já arrecadaram milhões com a Rifas364.</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <a href="#" class="bg-white text-primary px-8 py-3 !rounded-button font-medium hover:bg-gray-100 transition whitespace-nowrap">Criar Minha Rifa</a>
+                <a href="#" class="bg-transparent border border-white text-white px-8 py-3 !rounded-button font-medium hover:bg-white/10 transition whitespace-nowrap">Falar com Consultor</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <a href="#" class="text-3xl font-['Pacifico'] text-white mb-6 inline-block">rifas364</a>
+                    <p class="text-gray-400 mb-6">A melhor plataforma para criar e gerenciar rifas online no Brasil.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="ri-facebook-fill ri-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="ri-instagram-fill ri-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="ri-twitter-x-fill ri-lg"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition">
+                            <i class="ri-whatsapp-fill ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Links Rápidos</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Início</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Como Funciona</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Rifas Disponíveis</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Criar Rifa</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Suporte</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Central de Ajuda</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Perguntas Frequentes</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Política de Privacidade</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Termos de Uso</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Política de Reembolso</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Contato</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="ri-mail-line ri-lg text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-400">contato@rifas364.com.br</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-phone-line ri-lg text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-400">(11) 98765-4321</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-map-pin-line ri-lg text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-400">Av. Paulista, 1000 - São Paulo, SP</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="mt-6">
+                        <h4 class="text-sm font-semibold mb-3">Inscreva-se para receber novidades</h4>
+                        <div class="flex">
+                            <input type="email" class="flex-grow px-4 py-2 bg-gray-800 border border-gray-700 rounded-l focus:outline-none focus:ring-2 focus:ring-primary text-white" placeholder="Seu e-mail">
+                            <button class="bg-primary text-white px-4 py-2 rounded-r hover:bg-primary/90 transition whitespace-nowrap">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm mb-4 md:mb-0">© 2025 Rifas364. Todos os direitos reservados.</p>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-400 text-sm">Formas de pagamento:</span>
+                        <div class="flex space-x-2">
+                            <i class="ri-visa-fill ri-lg text-gray-300"></i>
+                            <i class="ri-mastercard-fill ri-lg text-gray-300"></i>
+                            <i class="ri-paypal-fill ri-lg text-gray-300"></i>
+                            <i class="ri-bank-card-fill ri-lg text-gray-300"></i>
+                            <i class="ri-bank-fill ri-lg text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ Accordion
+            const faqButtons = document.querySelectorAll('.border.border-gray-200.rounded-lg.overflow-hidden button');
+            
+            faqButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('i');
+                    
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.classList.remove('ri-arrow-up-s-line');
+                        icon.classList.add('ri-arrow-down-s-line');
+                    } else {
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.classList.remove('ri-arrow-down-s-line');
+                        icon.classList.add('ri-arrow-up-s-line');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
