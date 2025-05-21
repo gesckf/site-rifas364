@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rifas36 - Sistema de Rifas Online</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#3B82F6',secondary:'#F97316'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.login-container {
+background-image: url('https://readdy.ai/api/search-image?query=a%20beautiful%20abstract%20background%20with%20soft%20blue%20and%20orange%20gradient%20colors%2C%20with%20subtle%20patterns%20and%20shapes%2C%20perfect%20for%20a%20raffle%20website%20login%20page%2C%20professional%20and%20clean%20design%2C%20with%20space%20for%20text%20and%20form%20elements&width=1920&height=1080&seq=1&orientation=landscape');
+background-size: cover;
+background-position: center;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.custom-checkbox {
+position: relative;
+padding-left: 30px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 2px solid #3B82F6;
+border-radius: 4px;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #3B82F6;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 50px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 34px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #3B82F6;
+}
+input:checked + .slider:before {
+transform: translateX(26px);
+}
+.raffle-number {
+width: 40px;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+border: 1px solid #e5e7eb;
+border-radius: 4px;
+cursor: pointer;
+transition: all 0.2s;
+}
+.raffle-number.available:hover {
+background-color: #dbeafe;
+border-color: #3B82F6;
+}
+.raffle-number.selected {
+background-color: #3B82F6;
+color: white;
+border-color: #3B82F6;
+}
+.raffle-number.sold {
+background-color: #f3f4f6;
+color: #9ca3af;
+cursor: not-allowed;
+text-decoration: line-through;
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<div id="auth-container" class="login-container min-h-screen flex items-center justify-center p-4">
+<div class="bg-white rounded-xl shadow-xl w-full max-w-md p-8">
+<div class="text-center mb-8">
+<h1 class="font-['Pacifico'] text-4xl text-primary mb-2">Rifas36</h1>
+<p class="text-gray-600">Sistema de Rifas Online</p>
+</div>
+<div id="login-form">
+<h2 class="text-2xl font-bold mb-6 text-gray-800">Login</h2>
+<form>
+<div class="mb-4">
+<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-mail-line"></i>
+</div>
+</div>
+<input type="email" id="email" class="pl-10 w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="seu@email.com" required>
+</div>
+</div>
+<div class="mb-6">
+<label for="password" class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-lock-line"></i>
+</div>
+</div>
+<input type="password" id="password" class="pl-10 w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="••••••••" required>
+</div>
+</div>
+<div class="flex items-center justify-between mb-6">
+<label class="custom-checkbox text-sm text-gray-600">
+Lembrar-me
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+<a href="#" class="text-sm text-primary hover:underline">Esqueceu a senha?</a>
+</div>
+<button type="button" onclick="showDashboard('buyer')" class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-3 px-4 !rounded-button transition-colors whitespace-nowrap">Entrar</button>
+</form>
+<div class="mt-6 text-center">
+<p class="text-gray-600">Não tem uma conta? <a href="#" onclick="showRegisterForm()" class="text-primary hover:underline">Criar conta</a></p>
+</div>
+</div>
+<div id="register-form" class="hidden">
+<h2 class="text-2xl font-bold mb-6 text-gray-800">Criar Conta</h2>
+<form>
+<div class="mb-4">
+<label for="fullname" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-user-line"></i>
+</div>
+</div>
+<input type="text" id="fullname" class="pl-10 w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="João Silva" required>
+</div>
+</div>
+<div class="mb-4">
+<label for="register-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-mail-line"></i>
+</div>
+</div>
+<input type="email" id="register-email" class="pl-10 w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="seu@email.com" required>
+</div>
+</div>
+<div class="mb-4">
+<label for="register-password" class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-lock-line"></i>
+</div>
+</div>
+<input type="password" id="register-password" class="pl-10 w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Mínimo 8 caracteres" required>
+</div>
+</div>
+<div class="mb-4">
+<label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirmar Senha</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-lock-line"></i>
+</div>
+</div>
+<input type="password" id="confirm-password" class="pl-10 w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Confirme sua senha" required>
+</div>
+</div>
+<div class="mb-6">
+<label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Conta</label>
+<div class="flex space-x-4">
+<div class="flex-1">
+<label class="flex items-center p-3 border border-gray-300 rounded-button cursor-pointer hover:border-primary">
+<input type="radio" name="account-type" value="creator" class="mr-2 h-4 w-4 text-primary">
+<div>
+<div class="w-6 h-6 flex items-center justify-center text-primary mb-1">
+<i class="ri-store-2-line"></i>
+</div>
+<span class="text-sm font-medium">Criador de Rifas</span>
+</div>
+</label>
+</div>
+<div class="flex-1">
+<label class="flex items-center p-3 border border-gray-300 rounded-button cursor-pointer hover:border-primary">
+<input type="radio" name="account-type" value="buyer" class="mr-2 h-4 w-4 text-primary" checked>
+<div>
+<div class="w-6 h-6 flex items-center justify-center text-primary mb-1">
+<i class="ri-shopping-cart-line"></i>
+</div>
+<span class="text-sm font-medium">Comprador</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<button type="button" class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-3 px-4 !rounded-button transition-colors whitespace-nowrap">Cadastrar</button>
+</form>
+<div class="mt-6 text-center">
+<p class="text-gray-600">Já tem uma conta? <a href="#" onclick="showLoginForm()" class="text-primary hover:underline">Fazer login</a></p>
+</div>
+</div>
+</div>
+</div>
+<!-- Dashboard do Criador de Rifas -->
+<div id="creator-dashboard" class="hidden">
+<div class="flex min-h-screen bg-gray-50">
+<!-- Sidebar -->
+<div class="w-64 bg-[#1E3A8A] text-white flex flex-col">
+<div class="p-4 border-b border-blue-800">
+<h1 class="font-['Pacifico'] text-2xl">Rifas36</h1>
+</div>
+<div class="p-4 border-b border-blue-800 flex items-center">
+<div class="w-10 h-10 rounded-full bg-blue-400 flex items-center justify-center mr-3">
+<div class="w-6 h-6 flex items-center justify-center text-white">
+<i class="ri-user-line"></i>
+</div>
+</div>
+<div>
+<p class="font-medium">Ricardo Oliveira</p>
+<p class="text-xs text-blue-200">Criador de Rifas</p>
+</div>
+</div>
+<nav class="flex-1 p-4">
+<ul class="space-y-1">
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button bg-blue-700 hover:bg-blue-800 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-dashboard-line"></i>
+</div>
+<span>Dashboard</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-ticket-2-line"></i>
+</div>
+<span>Minhas Rifas</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-money-dollar-circle-line"></i>
+</div>
+<span>Financeiro</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-settings-3-line"></i>
+</div>
+<span>Configurações</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="p-4 mt-auto">
+<button onclick="showAuthContainer()" class="flex items-center text-sm hover:text-blue-200 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-logout-box-line"></i>
+</div>
+<span>Sair</span>
+</button>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col">
+<!-- Top Bar -->
+<header class="bg-white shadow-sm p-4 flex justify-between items-center">
+<h2 class="text-xl font-semibold text-gray-800">Dashboard</h2>
+<div class="flex items-center space-x-4">
+<button class="bg-secondary hover:bg-orange-500 text-white px-4 py-2 !rounded-button flex items-center whitespace-nowrap" onclick="showCreateRaffleModal()">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-add-line"></i>
+</div>
+<span>Nova Rifa</span>
+</button>
+<button class="text-gray-500 hover:text-gray-700">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-notification-3-line"></i>
+</div>
+</button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="flex-1 p-6 overflow-auto">
+<!-- Stats Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-white rounded-xl shadow-sm p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-gray-500 text-sm font-medium">Total Arrecadado</h3>
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-primary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-money-dollar-circle-line"></i>
+</div>
+</div>
+</div>
+<p class="text-2xl font-bold text-gray-800">R$ 12.580,00</p>
+<p class="text-sm text-green-500 flex items-center mt-2">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-arrow-up-line"></i>
+</div>
+<span>8,2% em relação ao mês anterior</span>
+</p>
+</div>
+<div class="bg-white rounded-xl shadow-sm p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-gray-500 text-sm font-medium">Rifas Ativas</h3>
+<div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-secondary">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-ticket-2-line"></i>
+</div>
+</div>
+</div>
+<p class="text-2xl font-bold text-gray-800">7</p>
+<p class="text-sm text-gray-500 mt-2">
+Total de 12 rifas criadas
+</p>
+</div>
+<div class="bg-white rounded-xl shadow-sm p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-gray-500 text-sm font-medium">Números Vendidos</h3>
+<div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+</div>
+</div>
+<p class="text-2xl font-bold text-gray-800">1.287</p>
+<p class="text-sm text-green-500 flex items-center mt-2">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-arrow-up-line"></i>
+</div>
+<span>12,5% em relação ao mês anterior</span>
+</p>
+</div>
+<div class="bg-white rounded-xl shadow-sm p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-gray-500 text-sm font-medium">Taxa de Conversão</h3>
+<div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-percent-line"></i>
+</div>
+</div>
+</div>
+<p class="text-2xl font-bold text-gray-800">68,5%</p>
+<p class="text-sm text-green-500 flex items-center mt-2">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-arrow-up-line"></i>
+</div>
+<span>3,2% em relação ao mês anterior</span>
+</p>
+</div>
+</div>
+<!-- Recent Raffles -->
+<div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-semibold text-gray-800">Rifas Recentes</h3>
+<a href="#" class="text-primary hover:underline text-sm flex items-center">
+<span>Ver todas</span>
+<div class="w-4 h-4 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full">
+<thead>
+<tr class="border-b border-gray-200">
+<th class="text-left py-3 px-4 text-sm font-medium text-gray-500">Status</th>
+<th class="text-left py-3 px-4 text-sm font-medium text-gray-500">Título</th>
+<th class="text-left py-3 px-4 text-sm font-medium text-gray-500">Preço</th>
+<th class="text-left py-3 px-4 text-sm font-medium text-gray-500">Vendidos</th>
+<th class="text-left py-3 px-4 text-sm font-medium text-gray-500">Arrecadado</th>
+<th class="text-left py-3 px-4 text-sm font-medium text-gray-500">Encerramento</th>
+<th class="text-left py-3 px-4 text-sm font-medium text-gray-500">Ações</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+Ativa
+</span>
+</td>
+<td class="py-3 px-4 font-medium">iPhone 15 Pro Max 256GB</td>
+<td class="py-3 px-4">R$ 10,00</td>
+<td class="py-3 px-4">
+<div class="flex items-center">
+<div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+<div class="bg-primary h-2.5 rounded-full" style="width: 85%"></div>
+</div>
+<span class="text-sm text-gray-600">85%</span>
+</div>
+</td>
+<td class="py-3 px-4 font-medium">R$ 4.250,00</td>
+<td class="py-3 px-4 text-gray-600">30/06/2025</td>
+<td class="py-3 px-4">
+<div class="flex space-x-2">
+<button class="text-gray-500 hover:text-primary">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-eye-line"></i>
+</div>
+</button>
+<button class="text-gray-500 hover:text-primary">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-edit-line"></i>
+</div>
+</button>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+Ativa
+</span>
+</td>
+<td class="py-3 px-4 font-medium">PlayStation 5 + 2 Controles</td>
+<td class="py-3 px-4">R$ 5,00</td>
+<td class="py-3 px-4">
+<div class="flex items-center">
+<div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+<div class="bg-primary h-2.5 rounded-full" style="width: 62%"></div>
+</div>
+<span class="text-sm text-gray-600">62%</span>
+</div>
+</td>
+<td class="py-3 px-4 font-medium">R$ 3.100,00</td>
+<td class="py-3 px-4 text-gray-600">15/06/2025</td>
+<td class="py-3 px-4">
+<div class="flex space-x-2">
+<button class="text-gray-500 hover:text-primary">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-eye-line"></i>
+</div>
+</button>
+<button class="text-gray-500 hover:text-primary">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-edit-line"></i>
+</div>
+</button>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+Quase encerrada
+</span>
+</td>
+<td class="py-3 px-4 font-medium">Notebook Dell XPS 15</td>
+<td class="py-3 px-4">R$ 20,00</td>
+<td class="py-3 px-4">
+<div class="flex items-center">
+<div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+<div class="bg-primary h-2.5 rounded-full" style="width: 95%"></div>
+</div>
+<span class="text-sm text-gray-600">95%</span>
+</div>
+</td>
+<td class="py-3 px-4 font-medium">R$ 5.700,00</td>
+<td class="py-3 px-4 text-gray-600">25/05/2025</td>
+<td class="py-3 px-4">
+<div class="flex space-x-2">
+<button class="text-gray-500 hover:text-primary">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-eye-line"></i>
+</div>
+</button>
+<button class="text-gray-500 hover:text-primary">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-edit-line"></i>
+</div>
+</button>
+</div>
+</td>
+</tr>
+<tr class="border-b border-gray-100 hover:bg-gray-50">
+<td class="py-3 px-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+Encerrada
+</span>
+</td>
+<td class="py-3 px-4 font-medium">Smart TV Samsung 65"</td>
+<td class="py-3 px-4">R$ 15,00</td>
+<td class="py-3 px-4">
+<div class="flex items-center">
+<div class="w-full bg-gray-200 rounded-full h-2.5 mr-2">
+<div class="bg-primary h-2.5 rounded-full" style="width: 100%"></div>
+</div>
+<span class="text-sm text-gray-600">100%</span>
+</div>
+</td>
+<td class="py-3 px-4 font-medium">R$ 4.500,00</td>
+<td class="py-3 px-4 text-gray-600">10/05/2025</td>
+<td class="py-3 px-4">
+<div class="flex space-x-2">
+<button class="text-gray-500 hover:text-primary">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-eye-line"></i>
+</div>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Performance Chart -->
+<div class="bg-white rounded-xl shadow-sm p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-semibold text-gray-800">Desempenho de Vendas</h3>
+<div class="flex space-x-2">
+<button class="px-3 py-1 text-sm border border-gray-300 !rounded-button text-gray-700 hover:bg-gray-50">7 dias</button>
+<button class="px-3 py-1 text-sm border border-primary bg-primary text-white !rounded-button">30 dias</button>
+<button class="px-3 py-1 text-sm border border-gray-300 !rounded-button text-gray-700 hover:bg-gray-50">90 dias</button>
+</div>
+</div>
+<div id="sales-chart" style="width: 100%; height: 300px;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Modal para criar nova rifa -->
+<div id="create-raffle-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<div class="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+<div class="p-6 border-b border-gray-200 flex justify-between items-center sticky top-0 bg-white">
+<h3 class="text-xl font-semibold text-gray-800">Nova Rifa</h3>
+<button onclick="hideCreateRaffleModal()" class="text-gray-500 hover:text-gray-700">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+<div class="p-6">
+<form>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="md:col-span-2">
+<label class="block text-sm font-medium text-gray-700 mb-2">Imagem do Prêmio</label>
+<div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+<div class="mx-auto w-16 h-16 flex items-center justify-center text-gray-400 mb-2">
+<i class="ri-image-add-line ri-2x"></i>
+</div>
+<p class="text-sm text-gray-500 mb-2">Arraste e solte uma imagem aqui ou</p>
+<button type="button" class="px-4 py-2 text-sm text-primary border border-primary !rounded-button hover:bg-blue-50 whitespace-nowrap">Selecionar Arquivo</button>
+<p class="text-xs text-gray-400 mt-2">PNG, JPG ou JPEG (máx. 5MB)</p>
+</div>
+</div>
+<div class="md:col-span-2">
+<label for="raffle-title" class="block text-sm font-medium text-gray-700 mb-2">Título da Rifa</label>
+<input type="text" id="raffle-title" class="w-full border border-gray-300 rounded-button p-3 focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Ex: iPhone 15 Pro Max 256GB">
+</div>
+<div class="md:col-span-2">
+<label for="raffle-description" class="block text-sm font-medium text-gray-700 mb-2">Descrição</label>
+<textarea id="raffle-description" rows="4" class="w-full border border-gray-300 rounded-button p-3 focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Descreva o prêmio em detalhes..."></textarea>
+</div>
+<div>
+<label for="raffle-price" class="block text-sm font-medium text-gray-700 mb-2">Preço por Número (R$)</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="text-gray-500">R$</span>
+</div>
+<input type="number" id="raffle-price" class="pl-10 w-full border border-gray-300 rounded-button p-3 focus:ring-2 focus:ring-primary focus:border-primary" placeholder="10,00">
+</div>
+</div>
+<div>
+<label for="raffle-numbers" class="block text-sm font-medium text-gray-700 mb-2">Quantidade de Números</label>
+<input type="number" id="raffle-numbers" class="w-full border border-gray-300 rounded-button p-3 focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Ex: 500">
+</div>
+<div>
+<label for="raffle-end-date" class="block text-sm font-medium text-gray-700 mb-2">Data de Encerramento</label>
+<input type="date" id="raffle-end-date" class="w-full border border-gray-300 rounded-button p-3 focus:ring-2 focus:ring-primary focus:border-primary">
+</div>
+<div>
+<label for="raffle-category" class="block text-sm font-medium text-gray-700 mb-2">Categoria</label>
+<div class="relative">
+<select id="raffle-category" class="w-full border border-gray-300 rounded-button p-3 pr-8 focus:ring-2 focus:ring-primary focus:border-primary appearance-none">
+<option value="">Selecione uma categoria</option>
+<option value="electronics">Eletrônicos</option>
+<option value="home">Casa e Decoração</option>
+<option value="auto">Automóveis</option>
+<option value="travel">Viagens</option>
+<option value="other">Outros</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-2">
+<label class="block text-sm font-medium text-gray-700 mb-2">Taxa do Site</label>
+<div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+<div>
+<p class="font-medium text-gray-800">10% sobre o valor arrecadado</p>
+<p class="text-sm text-gray-500 mt-1">Esta é a taxa padrão da plataforma</p>
+</div>
+<button type="button" class="text-primary hover:underline text-sm">Solicitar alteração</button>
+</div>
+</div>
+<div class="md:col-span-2">
+<label class="flex items-center">
+<input type="checkbox" class="h-4 w-4 text-primary border-gray-300 rounded">
+<span class="ml-2 text-sm text-gray-700">Concordo com os <a href="#" class="text-primary hover:underline">Termos de Serviço</a> e <a href="#" class="text-primary hover:underline">Políticas de Privacidade</a>.</span>
+</label>
+</div>
+</div>
+<div class="mt-8 flex justify-end space-x-3">
+<button type="button" onclick="hideCreateRaffleModal()" class="px-4 py-2 border border-gray-300 text-gray-700 !rounded-button hover:bg-gray-50 whitespace-nowrap">Cancelar</button>
+<button type="button" class="px-4 py-2 bg-primary hover:bg-blue-600 text-white !rounded-button whitespace-nowrap">Criar Rifa</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+<!-- Dashboard do Comprador de Rifas -->
+<div id="buyer-dashboard" class="hidden">
+<div class="flex min-h-screen bg-gray-50">
+<!-- Sidebar -->
+<div class="w-64 bg-[#1E3A8A] text-white flex flex-col">
+<div class="p-4 border-b border-blue-800">
+<h1 class="font-['Pacifico'] text-2xl">Rifas36</h1>
+</div>
+<div class="p-4 border-b border-blue-800 flex items-center">
+<div class="w-10 h-10 rounded-full bg-blue-400 flex items-center justify-center mr-3">
+<div class="w-6 h-6 flex items-center justify-center text-white">
+<i class="ri-user-line"></i>
+</div>
+</div>
+<div>
+<p class="font-medium">Mariana Santos</p>
+<p class="text-xs text-blue-200">Compradora</p>
+</div>
+</div>
+<nav class="flex-1 p-4">
+<ul class="space-y-1">
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button bg-blue-700 hover:bg-blue-800 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-store-2-line"></i>
+</div>
+<span>Explorar Rifas</span>
+</a>
+</li>
+<li>
+<a href="https://readdy.ai/home/d1b261df-c2a5-4031-8501-9570e63f5cab/2cfd26bd-478d-4849-a10e-5d5246f7fadd" data-readdy="true" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-shopping-bag-line"></i>
+</div>
+<span>Minhas Compras</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-heart-line"></i>
+</div>
+<span>Favoritos</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-user-settings-line"></i>
+</div>
+<span>Minha Conta</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="p-4 mt-auto">
+<button onclick="showAuthContainer()" class="flex items-center text-sm hover:text-blue-200 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-logout-box-line"></i>
+</div>
+<span>Sair</span>
+</button>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col">
+<!-- Top Bar -->
+<header class="bg-white shadow-sm p-4 flex justify-between items-center">
+<div class="relative w-full max-w-md">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<input type="text" class="pl-10 w-full border border-gray-300 rounded-button py-2 px-4 focus:ring-2 focus:ring-primary focus:border-primary text-sm" placeholder="Buscar rifas...">
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-gray-500 hover:text-gray-700 relative">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+</button>
+<button class="text-gray-500 hover:text-gray-700">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-notification-3-line"></i>
+</div>
+</button>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="flex-1 p-6 overflow-auto">
+<!-- Featured Raffles -->
+<div class="mb-8">
+<h2 class="text-2xl font-bold text-gray-800 mb-6">Rifas em Destaque</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20photo%20of%20an%20iPhone%2015%20Pro%20Max%20smartphone%20on%20a%20clean%20white%20background%2C%20showing%20the%20device%20from%20the%20front%20and%20back%2C%20high%20quality%20product%20photography%20with%20soft%20shadows&width=600&height=400&seq=1&orientation=landscape" alt="iPhone 15 Pro Max" class="w-full h-48 object-cover object-top">
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-heart-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-lg font-semibold text-gray-800">iPhone 15 Pro Max 256GB</h3>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+Ativa
+</span>
+</div>
+<p class="text-gray-600 text-sm mb-4 line-clamp-2">Concorra a um iPhone 15 Pro Max 256GB, cor Titânio Azul, com garantia Apple de 1 ano.</p>
+<div class="flex justify-between items-center mb-4">
+<div>
+<p class="text-xs text-gray-500">Preço por número</p>
+<p class="text-lg font-bold text-primary">R$ 10,00</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-500">Encerramento</p>
+<p class="text-sm font-medium">30/06/2025</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span>425/500 vendidos</span>
+<span class="font-medium">85%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<button onclick="showRaffleDetail()" class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 !rounded-button transition-colors whitespace-nowrap">Comprar Agora</button>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20photo%20of%20a%20PlayStation%205%20console%20with%20two%20controllers%20on%20a%20clean%20white%20background%2C%20high%20quality%20product%20photography%20with%20soft%20shadows%2C%20showing%20the%20gaming%20system%20from%20a%20slight%20angle&width=600&height=400&seq=2&orientation=landscape" alt="PlayStation 5" class="w-full h-48 object-cover object-top">
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-heart-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-lg font-semibold text-gray-800">PlayStation 5 + 2 Controles</h3>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+Ativa
+</span>
+</div>
+<p class="text-gray-600 text-sm mb-4 line-clamp-2">PlayStation 5 edição digital com 2 controles DualSense, 1 jogo digital à escolha do ganhador.</p>
+<div class="flex justify-between items-center mb-4">
+<div>
+<p class="text-xs text-gray-500">Preço por número</p>
+<p class="text-lg font-bold text-primary">R$ 5,00</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-500">Encerramento</p>
+<p class="text-sm font-medium">15/06/2025</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span>620/1000 vendidos</span>
+<span class="font-medium">62%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 62%"></div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 !rounded-button transition-colors whitespace-nowrap">Comprar Agora</button>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20photo%20of%20a%20Dell%20XPS%2015%20laptop%20on%20a%20clean%20white%20background%2C%20showing%20the%20device%20from%20a%20slight%20angle%20with%20the%20screen%20open%2C%20high%20quality%20product%20photography%20with%20soft%20shadows&width=600&height=400&seq=3&orientation=landscape" alt="Dell XPS 15" class="w-full h-48 object-cover object-top">
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-red-500 hover:text-red-600 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-heart-fill"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-lg font-semibold text-gray-800">Notebook Dell XPS 15</h3>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+Quase encerrada
+</span>
+</div>
+<p class="text-gray-600 text-sm mb-4 line-clamp-2">Dell XPS 15, Intel Core i7, 16GB RAM, 512GB SSD, NVIDIA RTX 3050, Windows 11 Pro.</p>
+<div class="flex justify-between items-center mb-4">
+<div>
+<p class="text-xs text-gray-500">Preço por número</p>
+<p class="text-lg font-bold text-primary">R$ 20,00</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-500">Encerramento</p>
+<p class="text-sm font-medium">25/05/2025</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span>285/300 vendidos</span>
+<span class="font-medium">95%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 95%"></div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 !rounded-button transition-colors whitespace-nowrap">Comprar Agora</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Categories -->
+<div class="mb-8">
+<h2 class="text-2xl font-bold text-gray-800 mb-6">Categorias</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+<a href="#" class="bg-white rounded-xl shadow-sm p-5 text-center hover:shadow-md transition-shadow">
+<div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-primary mx-auto mb-3">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-smartphone-line"></i>
+</div>
+</div>
+<h3 class="font-medium text-gray-800">Eletrônicos</h3>
+<p class="text-sm text-gray-500 mt-1">42 rifas</p>
+</a>
+<a href="#" class="bg-white rounded-xl shadow-sm p-5 text-center hover:shadow-md transition-shadow">
+<div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600 mx-auto mb-3">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-car-line"></i>
+</div>
+</div>
+<h3 class="font-medium text-gray-800">Automóveis</h3>
+<p class="text-sm text-gray-500 mt-1">15 rifas</p>
+</a>
+<a href="#" class="bg-white rounded-xl shadow-sm p-5 text-center hover:shadow-md transition-shadow">
+<div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-3">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-home-line"></i>
+</div>
+</div>
+<h3 class="font-medium text-gray-800">Casa</h3>
+<p class="text-sm text-gray-500 mt-1">28 rifas</p>
+</a>
+<a href="#" class="bg-white rounded-xl shadow-sm p-5 text-center hover:shadow-md transition-shadow">
+<div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mx-auto mb-3">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-gamepad-line"></i>
+</div>
+</div>
+<h3 class="font-medium text-gray-800">Games</h3>
+<p class="text-sm text-gray-500 mt-1">36 rifas</p>
+</a>
+<a href="#" class="bg-white rounded-xl shadow-sm p-5 text-center hover:shadow-md transition-shadow">
+<div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 mx-auto mb-3">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-plane-line"></i>
+</div>
+</div>
+<h3 class="font-medium text-gray-800">Viagens</h3>
+<p class="text-sm text-gray-500 mt-1">9 rifas</p>
+</a>
+<a href="#" class="bg-white rounded-xl shadow-sm p-5 text-center hover:shadow-md transition-shadow">
+<div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 mx-auto mb-3">
+<div class="w-6 h-6 flex items-center justify-center">
+<i class="ri-more-line"></i>
+</div>
+</div>
+<h3 class="font-medium text-gray-800">Outros</h3>
+<p class="text-sm text-gray-500 mt-1">23 rifas</p>
+</a>
+</div>
+</div>
+<!-- All Raffles -->
+<div>
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-gray-800">Todas as Rifas</h2>
+<div class="flex items-center space-x-2">
+<span class="text-sm text-gray-500">Ordenar por:</span>
+<div class="relative">
+<select class="text-sm border border-gray-300 rounded-button py-2 pl-3 pr-8 focus:ring-2 focus:ring-primary focus:border-primary appearance-none">
+<option>Mais recentes</option>
+<option>Preço: menor para maior</option>
+<option>Preço: maior para menor</option>
+<option>Mais populares</option>
+<option>Encerramento próximo</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+<div class="w-4 h-4 flex items-center justify-center text-gray-400">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20photo%20of%20a%20Samsung%2065%20inch%20smart%20TV%20on%20a%20clean%20white%20background%2C%20showing%20the%20thin%20bezel%20design%2C%20high%20quality%20product%20photography%20with%20soft%20shadows&width=600&height=400&seq=4&orientation=landscape" alt="Smart TV Samsung" class="w-full h-48 object-cover object-top">
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-heart-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-lg font-semibold text-gray-800">Smart TV Samsung 65"</h3>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+Encerrada
+</span>
+</div>
+<p class="text-gray-600 text-sm mb-4 line-clamp-2">Smart TV Samsung 65" 4K Crystal UHD, processador Crystal 4K, HDR.</p>
+<div class="flex justify-between items-center mb-4">
+<div>
+<p class="text-xs text-gray-500">Preço por número</p>
+<p class="text-lg font-bold text-primary">R$ 15,00</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-500">Encerramento</p>
+<p class="text-sm font-medium">10/05/2025</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span>300/300 vendidos</span>
+<span class="font-medium">100%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 100%"></div>
+</div>
+</div>
+<button class="w-full bg-gray-300 text-gray-600 font-medium py-2.5 px-4 !rounded-button cursor-not-allowed whitespace-nowrap">Encerrada</button>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20photo%20of%20an%20Apple%20Watch%20Series%209%20on%20a%20clean%20white%20background%2C%20showing%20the%20device%20from%20a%20slight%20angle%2C%20high%20quality%20product%20photography%20with%20soft%20shadows&width=600&height=400&seq=5&orientation=landscape" alt="Apple Watch Series 9" class="w-full h-48 object-cover object-top">
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-heart-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-lg font-semibold text-gray-800">Apple Watch Series 9</h3>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+Ativa
+</span>
+</div>
+<p class="text-gray-600 text-sm mb-4 line-clamp-2">Apple Watch Series 9 GPS, caixa 45mm, pulseira esportiva, monitoramento de saúde.</p>
+<div class="flex justify-between items-center mb-4">
+<div>
+<p class="text-xs text-gray-500">Preço por número</p>
+<p class="text-lg font-bold text-primary">R$ 8,00</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-500">Encerramento</p>
+<p class="text-sm font-medium">05/07/2025</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span>73/200 vendidos</span>
+<span class="font-medium">36%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 36%"></div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 !rounded-button transition-colors whitespace-nowrap">Comprar Agora</button>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20photo%20of%20a%20Nintendo%20Switch%20OLED%20console%20with%20joycons%20on%20a%20clean%20white%20background%2C%20showing%20the%20device%20from%20a%20slight%20angle%2C%20high%20quality%20product%20photography%20with%20soft%20shadows&width=600&height=400&seq=6&orientation=landscape" alt="Nintendo Switch OLED" class="w-full h-48 object-cover object-top">
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-heart-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-lg font-semibold text-gray-800">Nintendo Switch OLED</h3>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+Ativa
+</span>
+</div>
+<p class="text-gray-600 text-sm mb-4 line-clamp-2">Nintendo Switch OLED com tela de 7", 64GB, Joy-Con e 2 jogos à escolha.</p>
+<div class="flex justify-between items-center mb-4">
+<div>
+<p class="text-xs text-gray-500">Preço por número</p>
+<p class="text-lg font-bold text-primary">R$ 7,00</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-500">Encerramento</p>
+<p class="text-sm font-medium">20/06/2025</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span>125/400 vendidos</span>
+<span class="font-medium">31%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 31%"></div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 !rounded-button transition-colors whitespace-nowrap">Comprar Agora</button>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm overflow-hidden">
+<div class="relative">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20photo%20of%20a%20Bose%20QuietComfort%20headphones%20on%20a%20clean%20white%20background%2C%20showing%20the%20device%20from%20a%20slight%20angle%2C%20high%20quality%20product%20photography%20with%20soft%20shadows&width=600&height=400&seq=7&orientation=landscape" alt="Fone Bose QuietComfort" class="w-full h-48 object-cover object-top">
+<div class="absolute top-3 right-3">
+<button class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-red-500 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-heart-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-3">
+<h3 class="text-lg font-semibold text-gray-800">Fone Bose QuietComfort</h3>
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+Ativa
+</span>
+</div>
+<p class="text-gray-600 text-sm mb-4 line-clamp-2">Fone Bose QuietComfort com cancelamento de ruído, Bluetooth 5.1, bateria de 24h.</p>
+<div class="flex justify-between items-center mb-4">
+<div>
+<p class="text-xs text-gray-500">Preço por número</p>
+<p class="text-lg font-bold text-primary">R$ 5,00</p>
+</div>
+<div class="text-right">
+<p class="text-xs text-gray-500">Encerramento</p>
+<p class="text-sm font-medium">10/07/2025</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between text-sm mb-1">
+<span>89/250 vendidos</span>
+<span class="font-medium">36%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 36%"></div>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 !rounded-button transition-colors whitespace-nowrap">Comprar Agora</button>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="flex items-center px-4 py-2 border border-primary text-primary !rounded-button hover:bg-blue-50 whitespace-nowrap">
+<span>Carregar mais</span>
+<div class="w-5 h-5 flex items-center justify-center ml-2">
+<i class="ri-arrow-down-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Página de Detalhe da Rifa -->
+<div id="raffle-detail" class="hidden">
+<div class="flex min-h-screen bg-gray-50">
+<!-- Sidebar -->
+<div class="w-64 bg-[#1E3A8A] text-white flex flex-col">
+<div class="p-4 border-b border-blue-800">
+<h1 class="font-['Pacifico'] text-2xl">Rifas36</h1>
+</div>
+<div class="p-4 border-b border-blue-800 flex items-center">
+<div class="w-10 h-10 rounded-full bg-blue-400 flex items-center justify-center mr-3">
+<div class="w-6 h-6 flex items-center justify-center text-white">
+<i class="ri-user-line"></i>
+</div>
+</div>
+<div>
+<p class="font-medium">Mariana Santos</p>
+<p class="text-xs text-blue-200">Compradora</p>
+</div>
+</div>
+<nav class="flex-1 p-4">
+<ul class="space-y-1">
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button bg-blue-700 hover:bg-blue-800 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-store-2-line"></i>
+</div>
+<span>Explorar Rifas</span>
+</a>
+</li>
+<li>
+<a href="https://readdy.ai/home/d1b261df-c2a5-4031-8501-9570e63f5cab/2cfd26bd-478d-4849-a10e-5d5246f7fadd" data-readdy="true" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-shopping-bag-line"></i>
+</div>
+<span>Minhas Compras</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-heart-line"></i>
+</div>
+<span>Favoritos</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-user-settings-line"></i>
+</div>
+<span>Minha Conta</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="p-4 mt-auto">
+<button onclick="showAuthContainer()" class="flex items-center text-sm hover:text-blue-200 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-logout-box-line"></i>
+</div>
+<span>Sair</span>
+</button>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col">
+<!-- Top Bar -->
+<header class="bg-white shadow-sm p-4 flex justify-between items-center">
+<button onclick="showBuyerDashboard()" class="flex items-center text-gray-600 hover:text-gray-900">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-arrow-left-line"></i>
+</div>
+<span>Voltar</span>
+</button>
+<div class="flex items-center space-x-4">
+<button class="text-gray-500 hover:text-gray-700 relative">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+</button>
+<button class="text-gray-500 hover:text-gray-700">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-notification-3-line"></i>
+</div>
+</button>
+</div>
+</header>
+<!-- Raffle Detail Content -->
+<div class="flex-1 p-6 overflow-auto">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Left Column - Product Image and Info -->
+<div>
+<div class="bg-white rounded-xl shadow-sm overflow-hidden mb-6">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20detailed%20photo%20of%20an%20iPhone%2015%20Pro%20Max%20smartphone%20on%20a%20clean%20white%20background%2C%20showing%20the%20device%20from%20multiple%20angles%2C%20high%20quality%20product%20photography%20with%20soft%20shadows%2C%20showing%20all%20the%20premium%20features&width=800&height=600&seq=8&orientation=landscape" alt="iPhone 15 Pro Max" class="w-full h-auto object-cover">
+</div>
+<div class="bg-white rounded-xl shadow-sm p-6">
+<h2 class="text-2xl font-bold text-gray-800 mb-4">iPhone 15 Pro Max 256GB</h2>
+<div class="flex items-center mb-4">
+<div class="flex items-center text-yellow-400">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-star-fill"></i>
+</div>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-star-half-fill"></i>
+</div>
+</div>
+<span class="text-sm text-gray-600 ml-2">4.8 (125 avaliações)</span>
+</div>
+<div class="mb-6">
+<div class="flex justify-between text-sm mb-2">
+<span>425/500 vendidos</span>
+<span class="font-medium">85%</span>
+</div>
+<div class="w-full bg-gray-200 rounded-full h-2.5">
+<div class="bg-primary h-2.5 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div class="flex justify-between items-center mb-6">
+<div>
+<p class="text-sm text-gray-500">Preço por número</p>
+<p class="text-2xl font-bold text-primary">R$ 10,00</p>
+</div>
+<div class="text-right">
+<p class="text-sm text-gray-500">Encerramento</p>
+<p class="text-lg font-semibold">30/06/2025</p>
+</div>
+</div>
+<div class="border-t border-gray-200 pt-6">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">Descrição</h3>
+<div class="text-gray-600 space-y-4">
+<p>Concorra a um iPhone 15 Pro Max 256GB, cor Titânio Azul, com garantia Apple de 1 ano.</p>
+<p>Características:</p>
+<ul class="list-disc pl-5 space-y-1">
+<li>Tela Super Retina XDR de 6,7 polegadas</li>
+<li>Chip A17 Pro</li>
+<li>Sistema de câmera Pro de 48MP</li>
+<li>Bateria com duração de até 29 horas</li>
+<li>Face ID</li>
+<li>USB-C</li>
+<li>iOS 17</li>
+</ul>
+<p>O sorteio será realizado pela Loteria Federal e transmitido ao vivo em nosso Instagram.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column - Number Selection and Cart -->
+<div>
+<div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">Escolha seus números</h3>
+<div class="flex items-center justify-between mb-4">
+<div class="relative">
+<input type="text" placeholder="Buscar número..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary text-sm">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-4 h-4 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+</div>
+<button class="ml-2 px-3 py-2 border border-gray-300 rounded-button text-gray-700 hover:bg-gray-50 text-sm whitespace-nowrap">
+Números aleatórios
+</button>
+</div>
+<div class="flex items-center space-x-4 mb-4 text-sm">
+<div class="flex items-center">
+<div class="w-4 h-4 bg-white border border-gray-300 rounded mr-2"></div>
+<span>Disponível</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 bg-primary rounded mr-2"></div>
+<span>Selecionado</span>
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 bg-gray-200 rounded mr-2"></div>
+<span>Vendido</span>
+</div>
+</div>
+<div class="border border-gray-200 rounded-lg p-4 mb-4">
+<div class="grid grid-cols-10 gap-2">
+<div class="raffle-number available">001</div>
+<div class="raffle-number available">002</div>
+<div class="raffle-number sold">003</div>
+<div class="raffle-number available">004</div>
+<div class="raffle-number selected">005</div>
+<div class="raffle-number sold">006</div>
+<div class="raffle-number available">007</div>
+<div class="raffle-number available">008</div>
+<div class="raffle-number available">009</div>
+<div class="raffle-number sold">010</div>
+<div class="raffle-number available">011</div>
+<div class="raffle-number selected">012</div>
+<div class="raffle-number available">013</div>
+<div class="raffle-number available">014</div>
+<div class="raffle-number sold">015</div>
+<div class="raffle-number available">016</div>
+<div class="raffle-number available">017</div>
+<div class="raffle-number sold">018</div>
+<div class="raffle-number available">019</div>
+<div class="raffle-number available">020</div>
+<div class="raffle-number sold">021</div>
+<div class="raffle-number available">022</div>
+<div class="raffle-number available">023</div>
+<div class="raffle-number available">024</div>
+<div class="raffle-number available">025</div>
+<div class="raffle-number selected">026</div>
+<div class="raffle-number available">027</div>
+<div class="raffle-number sold">028</div>
+<div class="raffle-number available">029</div>
+<div class="raffle-number available">030</div>
+<div class="raffle-number available">031</div>
+<div class="raffle-number available">032</div>
+<div class="raffle-number sold">033</div>
+<div class="raffle-number available">034</div>
+<div class="raffle-number available">035</div>
+<div class="raffle-number available">036</div>
+<div class="raffle-number sold">037</div>
+<div class="raffle-number available">038</div>
+<div class="raffle-number available">039</div>
+<div class="raffle-number available">040</div>
+</div>
+<div class="mt-4 flex justify-center">
+<button class="flex items-center px-4 py-2 text-primary hover:text-blue-700 text-sm whitespace-nowrap">
+<span>Ver mais números</span>
+<div class="w-4 h-4 flex items-center justify-center ml-1">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+<!-- Shopping Cart -->
+<div class="bg-white rounded-xl shadow-sm p-6 sticky top-6">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">Seu carrinho</h3>
+<div class="border-b border-gray-200 pb-4 mb-4">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-medium">iPhone 15 Pro Max 256GB</h4>
+<button class="text-gray-400 hover:text-gray-600">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+<div class="flex flex-wrap gap-2 mb-3">
+<div class="px-2 py-1 bg-blue-100 text-primary text-sm rounded flex items-center">
+005
+<button class="ml-1 text-gray-500 hover:text-gray-700">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+<div class="px-2 py-1 bg-blue-100 text-primary text-sm rounded flex items-center">
+012
+<button class="ml-1 text-gray-500 hover:text-gray-700">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+<div class="px-2 py-1 bg-blue-100 text-primary text-sm rounded flex items-center">
+026
+<button class="ml-1 text-gray-500 hover:text-gray-700">
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-close-line"></i>
+</div>
+</button>
+</div>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-gray-600">3 números x R$ 10,00</span>
+<span class="font-medium">R$ 30,00</span>
+</div>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex justify-between">
+<span class="text-gray-600">Subtotal</span>
+<span class="font-medium">R$ 30,00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-600">Taxa de processamento</span>
+<span class="font-medium">R$ 0,00</span>
+</div>
+<div class="flex justify-between text-lg font-bold">
+<span>Total</span>
+<span>R$ 30,00</span>
+</div>
+</div>
+<button onclick="showCheckout()" class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-3 px-4 !rounded-button transition-colors mb-3 whitespace-nowrap">Finalizar Compra</button>
+<button class="w-full border border-gray-300 text-gray-700 font-medium py-3 px-4 !rounded-button hover:bg-gray-50 transition-colors whitespace-nowrap">Continuar Comprando</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Checkout Page -->
+<div id="checkout" class="hidden">
+<div class="flex min-h-screen bg-gray-50">
+<!-- Sidebar -->
+<div class="w-64 bg-[#1E3A8A] text-white flex flex-col">
+<div class="p-4 border-b border-blue-800">
+<h1 class="font-['Pacifico'] text-2xl">Rifas36</h1>
+</div>
+<div class="p-4 border-b border-blue-800 flex items-center">
+<div class="w-10 h-10 rounded-full bg-blue-400 flex items-center justify-center mr-3">
+<div class="w-6 h-6 flex items-center justify-center text-white">
+<i class="ri-user-line"></i>
+</div>
+</div>
+<div>
+<p class="font-medium">Mariana Santos</p>
+<p class="text-xs text-blue-200">Compradora</p>
+</div>
+</div>
+<nav class="flex-1 p-4">
+<ul class="space-y-1">
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-store-2-line"></i>
+</div>
+<span>Explorar Rifas</span>
+</a>
+</li>
+<li>
+<a href="https://readdy.ai/home/d1b261df-c2a5-4031-8501-9570e63f5cab/2cfd26bd-478d-4849-a10e-5d5246f7fadd" data-readdy="true" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-shopping-bag-line"></i>
+</div>
+<span>Minhas Compras</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-heart-line"></i>
+</div>
+<span>Favoritos</span>
+</a>
+</li>
+<li>
+<a href="#" class="flex items-center px-4 py-3 rounded-button hover:bg-blue-700 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-3">
+<i class="ri-user-settings-line"></i>
+</div>
+<span>Minha Conta</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="p-4 mt-auto">
+<button onclick="showAuthContainer()" class="flex items-center text-sm hover:text-blue-200 transition-colors">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-logout-box-line"></i>
+</div>
+<span>Sair</span>
+</button>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col">
+<!-- Top Bar -->
+<header class="bg-white shadow-sm p-4 flex justify-between items-center">
+<button onclick="showRaffleDetail()" class="flex items-center text-gray-600 hover:text-gray-900">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-arrow-left-line"></i>
+</div>
+<span>Voltar</span>
+</button>
+<div class="flex items-center space-x-4">
+<button class="text-gray-500 hover:text-gray-700 relative">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-shopping-cart-line"></i>
+</div>
+<span class="absolute -top-1 -right-1 bg-secondary text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">3</span>
+</button>
+</div>
+</header>
+<!-- Checkout Content -->
+<div class="flex-1 p-6 overflow-auto">
+<div class="max-w-5xl mx-auto">
+<h1 class="text-2xl font-bold text-gray-800 mb-6">Finalizar Compra</h1>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Checkout Form -->
+<div class="lg:col-span-2">
+<div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+<h2 class="text-lg font-semibold text-gray-800 mb-4">Forma de Pagamento</h2>
+<div class="mb-6">
+<div class="flex space-x-4 mb-4">
+<label class="flex items-center p-3 border border-gray-300 rounded-button cursor-pointer hover:border-primary flex-1">
+<input type="radio" name="payment-method" value="credit-card" class="mr-2 h-4 w-4 text-primary" checked>
+<div class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-2">
+<i class="ri-bank-card-line"></i>
+</div>
+<span class="text-sm font-medium">Cartão de Crédito</span>
+</div>
+</label>
+<label class="flex items-center p-3 border border-gray-300 rounded-button cursor-pointer hover:border-primary flex-1">
+<input type="radio" name="payment-method" value="pix" class="mr-2 h-4 w-4 text-primary">
+<div class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-2">
+<i class="ri-qr-code-line"></i>
+</div>
+<span class="text-sm font-medium">PIX</span>
+</div>
+</label>
+<label class="flex items-center p-3 border border-gray-300 rounded-button cursor-pointer hover:border-primary flex-1">
+<input type="radio" name="payment-method" value="boleto" class="mr-2 h-4 w-4 text-primary">
+<div class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center text-primary mr-2">
+<i class="ri-bill-line"></i>
+</div>
+<span class="text-sm font-medium">Boleto</span>
+</div>
+</label>
+</div>
+<!-- Credit Card Form -->
+<div id="credit-card-form">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+<div class="md:col-span-2">
+<label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Número do Cartão</label>
+<div class="relative">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-bank-card-line"></i>
+</div>
+</div>
+<input type="text" id="card-number" class="pl-10 w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="0000 0000 0000 0000">
+</div>
+</div>
+<div>
+<label for="card-name" class="block text-sm font-medium text-gray-700 mb-1">Nome no Cartão</label>
+<input type="text" id="card-name" class="w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="Nome como está no cartão">
+</div>
+<div class="flex space-x-4">
+<div class="flex-1">
+<label for="card-expiry" class="block text-sm font-medium text-gray-700 mb-1">Validade</label>
+<input type="text" id="card-expiry" class="w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="MM/AA">
+</div>
+<div class="flex-1">
+<label for="card-cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+<input type="text" id="card-cvv" class="w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="123">
+</div>
+</div>
+</div>
+<div class="flex items-center mb-4">
+<label class="custom-checkbox text-sm text-gray-600">
+Salvar cartão para compras futuras
+<input type="checkbox">
+<span class="checkmark"></span>
+</label>
+</div>
+<div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+<div class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2">
+<i class="ri-lock-line"></i>
+</div>
+<span class="text-sm text-gray-600">Pagamento seguro e criptografado</span>
+</div>
+<div class="flex space-x-2">
+<div class="w-8 h-5 flex items-center justify-center text-gray-600">
+<i class="ri-visa-fill"></i>
+</div>
+<div class="w-8 h-5 flex items-center justify-center text-gray-600">
+<i class="ri-mastercard-fill"></i>
+</div>
+<div class="w-8 h-5 flex items-center justify-center text-gray-600">
+<i class="ri-american-express-fill"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-sm p-6">
+<h2 class="text-lg font-semibold text-gray-800 mb-4">Informações de Contato</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label for="contact-name" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+<input type="text" id="contact-name" class="w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" value="Mariana Santos">
+</div>
+<div>
+<label for="contact-email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+<input type="email" id="contact-email" class="w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" value="mariana.santos@email.com">
+</div>
+<div>
+<label for="contact-phone" class="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
+<input type="tel" id="contact-phone" class="w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="(00) 00000-0000">
+</div>
+<div>
+<label for="contact-cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF</label>
+<input type="text" id="contact-cpf" class="w-full h-12 border border-gray-300 rounded-button focus:ring-2 focus:ring-primary focus:border-primary" placeholder="000.000.000-00">
+</div>
+</div>
+</div>
+</div>
+<!-- Order Summary -->
+<div>
+<div class="bg-white rounded-xl shadow-sm p-6 sticky top-6">
+<h2 class="text-lg font-semibold text-gray-800 mb-4">Resumo do Pedido</h2>
+<div class="border-b border-gray-200 pb-4 mb-4">
+<div class="flex items-start mb-4">
+<img src="https://readdy.ai/api/search-image?query=a%20professional%20photo%20of%20an%20iPhone%2015%20Pro%20Max%20smartphone%20on%20a%20clean%20white%20background%2C%20high%20quality%20product%20photography%20with%20soft%20shadows&width=100&height=100&seq=9&orientation=squarish" alt="iPhone 15 Pro Max" class="w-16 h-16 object-cover rounded mr-3">
+<div>
+<h3 class="font-medium text-gray-800">iPhone 15 Pro Max 256GB</h3>
+<p class="text-sm text-gray-500">3 números: 005, 012, 026</p>
+</div>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-gray-600">3 números x R$ 10,00</span>
+<span class="font-medium">R$ 30,00</span>
+</div>
+</div>
+<div class="space-y-3 mb-6">
+<div class="flex justify-between">
+<span class="text-gray-600">Subtotal</span>
+<span class="font-medium">R$ 30,00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-600">Taxa de processamento</span>
+<span class="font-medium">R$ 0,00</span>
+</div>
+<div class="flex justify-between text-lg font-bold">
+<span>Total</span>
+<span>R$ 30,00</span>
+</div>
+</div>
+<button onclick="showPaymentSuccess()" class="w-full bg-primary hover:bg-blue-600 text-white font-medium py-3 px-4 !rounded-button transition-colors mb-3 whitespace-nowrap">Confirmar Pagamento</button>
+<div class="text-xs text-gray-500 text-center">
+Ao finalizar a compra, você concorda com os <a href="#" class="text-primary hover:underline">Termos de Serviço</a> e <a href="#" class="text-primary hover:underline">Políticas de Privacidade</a>.
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Payment Success Modal -->
+<div id="payment-success-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+<div class="bg-white rounded-xl max-w-md w-full p-6 text-center">
+<div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+<div class="w-10 h-10 flex items-center justify-center text-green-500">
+<i class="ri-check-line ri-2x"></i>
+</div>
+</div>
+<h3 class="text-2xl font-bold text-gray-800 mb-2">Pagamento Confirmado!</h3>
+<p class="text-gray-600 mb-6">Seus números da rifa foram reservados com sucesso.</p>
+<div class="bg-gray-50 rounded-lg p-4 mb-6">
+<div class="flex justify-between mb-2">
+<span class="text-gray-600">Rifa:</span>
+<span class="font-medium">iPhone 15 Pro Max 256GB</span>
+</div>
+<div class="flex justify-between mb-2">
+<span class="text-gray-600">Números:</span>
+<span class="font-medium">005, 012, 026</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-600">Total pago:</span>
+<span class="font-medium">R$ 30,00</span>
+</div>
+</div>
+<div class="flex space-x-3">
+<button onclick="showBuyerDashboard()" class="flex-1 border border-gray-300 text-gray-700 font-medium py-2.5 px-4 !rounded-button hover:bg-gray-50 transition-colors whitespace-nowrap">Explorar Rifas</button>
+<button class="flex-1 bg-primary hover:bg-blue-600 text-white font-medium py-2.5 px-4 !rounded-button transition-colors whitespace-nowrap">Minhas Compras</button>
+</div>
+</div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Initialize sales chart
+const salesChart = document.getElementById('sales-chart');
+if (salesChart) {
+const chart = echarts.init(salesChart);
+const option = {
+animation: false,
+tooltip: {
+trigger: 'axis',
+backgroundColor: 'rgba(255, 255, 255, 0.9)',
+borderColor: '#e2e8f0',
+borderWidth: 1,
+textStyle: {
+color: '#1f2937'
+}
+},
+grid: {
+left: 0,
+right: 0,
+top: 10,
+bottom: 0,
+containLabel: true
+},
+xAxis: {
+type: 'category',
+data: ['01/05', '05/05', '10/05', '15/05', '20/05', '25/05', '30/05'],
+axisLine: {
+lineStyle: {
+color: '#e2e8f0'
+}
+},
+axisLabel: {
+color: '#1f2937'
+}
+},
+yAxis: {
+type: 'value',
+axisLine: {
+show: false
+},
+axisTick: {
+show: false
+},
+splitLine: {
+lineStyle: {
+color: '#e2e8f0'
+}
+},
+axisLabel: {
+color: '#1f2937'
+}
+},
+series: [
+{
+name: 'Vendas',
+type: 'line',
+smooth: true,
+symbol: 'none',
+lineStyle: {
+width: 3,
+color: 'rgba(87, 181, 231, 1)'
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0,
+color: 'rgba(87, 181, 231, 0.2)'
+}, {
+offset: 1,
+color: 'rgba(87, 181, 231, 0.01)'
+}]
+}
+},
+data: [420, 532, 601, 834, 990, 1330, 1520]
+},
+{
+name: 'Arrecadação',
+type: 'line',
+smooth: true,
+symbol: 'none',
+lineStyle: {
+width: 3,
+color: 'rgba(141, 211, 199, 1)'
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0,
+color: 'rgba(141, 211, 199, 0.2)'
+}, {
+offset: 1,
+color: 'rgba(141, 211, 199, 0.01)'
+}]
+}
+},
+data: [2100, 2660, 3005, 4170, 4950, 6650, 7600]
+}
+]
+};
+chart.setOption(option);
+window.addEventListener('resize', function() {
+chart.resize();
+});
+}
+});
+// Authentication Form Toggle
+function showRegisterForm() {
+document.getElementById('login-form').classList.add('hidden');
+document.getElementById('register-form').classList.remove('hidden');
+}
+function showLoginForm() {
+document.getElementById('register-form').classList.add('hidden');
+document.getElementById('login-form').classList.remove('hidden');
+}
+// Show/Hide Dashboard
+function showDashboard(type) {
+document.getElementById('auth-container').classList.add('hidden');
+if (type === 'creator') {
+document.getElementById('creator-dashboard').classList.remove('hidden');
+document.getElementById('buyer-dashboard').classList.add('hidden');
+} else {
+document.getElementById('buyer-dashboard').classList.remove('hidden');
+document.getElementById('creator-dashboard').classList.add('hidden');
+}
+}
+function showAuthContainer() {
+document.getElementById('auth-container').classList.remove('hidden');
+document.getElementById('creator-dashboard').classList.add('hidden');
+document.getElementById('buyer-dashboard').classList.add('hidden');
+document.getElementById('raffle-detail').classList.add('hidden');
+document.getElementById('checkout').classList.add('hidden');
+}
+// Create Raffle Modal
+function showCreateRaffleModal() {
+document.getElementById('create-raffle-modal').classList.remove('hidden');
+}
+function hideCreateRaffleModal() {
+document.getElementById('create-raffle-modal').classList.add('hidden');
+}
+// Raffle Detail Page
+function showRaffleDetail() {
+document.getElementById('buyer-dashboard').classList.add('hidden');
+document.getElementById('checkout').classList.add('hidden');
+document.getElementById('raffle-detail').classList.remove('hidden');
+}
+function showBuyerDashboard() {
+document.getElementById('raffle-detail').classList.add('hidden');
+document.getElementById('checkout').classList.add('hidden');
+document.getElementById('payment-success-modal').classList.add('hidden');
+document.getElementById('buyer-dashboard').classList.remove('hidden');
+}
+// Checkout Page
+function showCheckout() {
+document.getElementById('raffle-detail').classList.add('hidden');
+document.getElementById('checkout').classList.remove('hidden');
+}
+// Payment Success Modal
+function showPaymentSuccess() {
+document.getElementById('payment-success-modal').classList.remove('hidden');
+}
+// Initialize raffle number selection
+document.addEventListener('DOMContentLoaded', function() {
+const availableNumbers = document.querySelectorAll('.raffle-number.available');
+availableNumbers.forEach(number => {
+number.addEventListener('click', function() {
+this.classList.toggle('selected');
+this.classList.toggle('available');
+});
+});
+});
+</script>
+</body>
+</html>
